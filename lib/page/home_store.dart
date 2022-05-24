@@ -4,9 +4,9 @@ class HomeStore {
 
   /// Define o CPF que sera usado para validação
   void setCpf(String cpf) => cpf.length >= 11
-      ? _cpf = cpf.replaceAll(RegExp('[^0-9]'), '').length >= 11
+      ? _cpf = cpf.replaceAll(RegExp('[^\\d]'), '').length >= 11
           ? cpf
-              .replaceAll(RegExp('[^0-9]'), '')
+              .replaceAll(RegExp('[^\\d]'), '')
               .replaceAllMapped(
                   RegExp(r".{9}"), (match) => "${match.group(0)}-")
               .split('-')
