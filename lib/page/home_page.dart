@@ -1,3 +1,4 @@
+import 'package:app_cpf/page/home_store.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -10,6 +11,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<HomePage> {
+  final hs = HomeStore();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,9 +26,10 @@ class _MyHomePageState extends State<HomePage> {
             child: Column(
               children: [
                 Image.asset('assets/images/undraw_enter.png', width: 250),
-                const TextField(
+                TextField(
+                  onChanged: hs.setCpf,
                   maxLength: 14,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     label: Text('CPF'),
                     counterText: '',
                     enabledBorder: OutlineInputBorder(),
@@ -38,7 +41,11 @@ class _MyHomePageState extends State<HomePage> {
                   height: 30,
                 ),
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    setState(() {
+                      //print(hs.isValid);
+                    });
+                  },
                   child: const Center(
                     child: Text('Validar'),
                   ),
@@ -46,9 +53,11 @@ class _MyHomePageState extends State<HomePage> {
                 const SizedBox(
                   height: 30,
                 ),
-                const Text(
-                  'Cpf é \n???',
-                  style: TextStyle(
+                Text(
+                  hs.isValid.isNotEmpty
+                      ? 'Cpf é \n${hs.isValid.contains('true') ? 'válido ✅' : 'inválido ❎'}'
+                      : '',
+                  style: const TextStyle(
                     fontSize: 22,
                     fontWeight: FontWeight.bold,
                   ),
